@@ -1,40 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import java.net.URL?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Style/Stylesheet.css"
-            xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carpark.ViewController">
-    <top>
-      <HBox id="top_bar" prefHeight="90.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="listBtn" mnemonicParsing="false" onAction="#listButtonAction" prefHeight="50.0" prefWidth="200.0" text="Lista">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="mapBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#mapButtonAction" prefHeight="50.0" prefWidth="200.0" text="Mapa">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Button>
-            <HBox prefHeight="100.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="closeBtn" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="50.0" prefWidth="200.0" text="Zamknij">
-               <HBox.margin>
-                  <Insets right="20.0" top="20.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
-   </top>
-   <center>
-      <BorderPane fx:id="contentPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1200.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="carpark.View.ListViewController">
+    <stylesheets>
+        <URL value="@/carpark/Style/Stylesheet.css" />
+    </stylesheets>
+   <children>
+      <BorderPane layoutX="206.0" layoutY="85.0" prefHeight="710.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox prefHeight="710.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </left>
          <center>
             <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <columns>
@@ -43,9 +24,6 @@
               </columns>
             </TableView>
          </center>
-         <left>
-            <VBox prefWidth="230.0" BorderPane.alignment="CENTER" />
-         </left>
       </BorderPane>
-   </center>
-</BorderPane>
+   </children>
+</AnchorPane>
