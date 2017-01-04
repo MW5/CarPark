@@ -1,3 +1,10 @@
 #top_bar {
     -fx-background-color: grey;
 }
+#modal_background_pane {
+    -fx-background-color: rgba(115,115,115,0.7);
+}
+#modal_dialog_pane {
+    -fx-background-color: rgb(175,175,165);
+    -fx-background-radius: 5px;
+}
