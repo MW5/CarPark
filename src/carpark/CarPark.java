@@ -12,10 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-/**
- *
- * @author MW5
- */
 public class CarPark extends Application {
     public Stage primaryStage;
     public BorderPane rootLayout;
@@ -28,10 +24,9 @@ public class CarPark extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.setTitle("System zarządzania parkingiem");
 
         initRootLayout();
-
         showListView();
     }
 
@@ -48,7 +43,7 @@ public class CarPark extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
     }
     
@@ -59,41 +54,44 @@ public class CarPark extends Application {
             listView = (AnchorPane) loader.load();
             rootLayout.setCenter(listView);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
     }
-    
-    @FXML
-    private void listButtonAction(ActionEvent event) throws Exception {
+    public void showMapView() {
         try {
-            //it workds but it`s not very nice - should be changed
-            primaryStage = (Stage) listBtn.getScene().getWindow(); //because action event creates anonymous inner class
-            rootLayout = (BorderPane) listBtn.getParent().getParent(); ////because action event creates anonymous inner class
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(CarPark.class.getResource("View/ListView.fxml"));
-            listView = (AnchorPane) loader.load();
-            rootLayout.setCenter(listView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    private void mapButtonAction(ActionEvent event) throws Exception {
-        try {
-            //it works but it`s not very nice - should be changed
-            primaryStage = (Stage) mapBtn.getScene().getWindow(); //because action event creates anonymous inner class
-            rootLayout = (BorderPane) mapBtn.getParent().getParent(); ////because action event creates anonymous inner class
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(CarPark.class.getResource("View/MapView.fxml"));
             mapView = (AnchorPane) loader.load();
             rootLayout.setCenter(mapView);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
+    }
+    public void showCloseModal(){
+        //to confirm close
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(CarPark.class.getResource("View/CloseModal.fxml"));
+        // closeModal = (kind of modal node?) loader.load();
+        //rootLayout.setCenter(closeModal);??
+        
+    }
+    
+    @FXML
+    private void listButtonAction(ActionEvent event) throws Exception {
+        primaryStage = (Stage) listBtn.getScene().getWindow(); //because action event creates anonymous inner class
+        rootLayout = (BorderPane) listBtn.getParent().getParent(); ////because action event creates anonymous inner class
+        showListView();
+    }
+    @FXML
+    private void mapButtonAction(ActionEvent event) throws Exception {
+        primaryStage = (Stage) mapBtn.getScene().getWindow(); //because action event creates anonymous inner class
+        rootLayout = (BorderPane) mapBtn.getParent().getParent(); ////because action event creates anonymous inner class
+        showMapView();
     }
     @FXML
     private void closeButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        //modal to confirm
+        primaryStage = (Stage) closeBtn.getScene().getWindow();
+        rootLayout = (BorderPane) closeBtn.getParent().getParent();
+        showCloseModal();
     }
 }
