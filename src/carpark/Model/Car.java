@@ -19,7 +19,7 @@ import javafx.beans.property.StringProperty;
  * @author MW5
  */
 public class Car {
-    private final IntegerProperty position;
+    private final IntegerProperty location;
     private final StringProperty make;
     private final StringProperty model;
     private final StringProperty firstName;
@@ -27,14 +27,14 @@ public class Car {
     private final IntegerProperty phoneNumber;
     private final ObjectProperty<LocalDateTime> startDateTime;
     
-    public Car(Integer position,
+    public Car(Integer location,
                 String make,
                 String model,
                 String firstName,
                 String lastName,
                 Integer phoneNumber,
                 LocalDateTime startDateTime) {
-        this.position = new SimpleIntegerProperty(position);
+        this.location = new SimpleIntegerProperty(location);
         this.make = new SimpleStringProperty(make);
         this.model = new SimpleStringProperty(model);
         this.firstName = new SimpleStringProperty(firstName);
@@ -42,15 +42,15 @@ public class Car {
         this.phoneNumber = new SimpleIntegerProperty(phoneNumber);
         this.startDateTime = new SimpleObjectProperty<LocalDateTime>(startDateTime); 
     }
-    //position
-    public Integer getPosition() {
-        return position.get();
+    //location
+    public Integer getLocation() {
+        return location.get();
     }
-    public void setPosition(Integer position) {
-        this.position.set(position);
+    public void setLocation(Integer location) {
+        this.location.set(location);
     }
-    public IntegerProperty positionProperty() {
-        return position;
+    public IntegerProperty locationProperty() {
+        return location;
     }
     //make
     public String getMake() {

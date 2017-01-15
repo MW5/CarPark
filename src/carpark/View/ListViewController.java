@@ -23,7 +23,7 @@ public class ListViewController implements Initializable {
     @FXML
     private TableView<Car> carTable;
     @FXML
-    private TableColumn<Car, Integer> locationCol;
+    private TableColumn<Car, Number> locationCol; //api mixup
     @FXML
     private TableColumn<Car, String> makeCol;
     @FXML
@@ -33,12 +33,13 @@ public class ListViewController implements Initializable {
     @FXML
     private TableColumn<Car, String> lastNameCol;
     @FXML
-    private TableColumn<Car, Integer> phoneNumberCol;
+    private TableColumn<Car, Number> phoneNumberCol; //same here
     @FXML
     private TableColumn<Car, LocalDateTime> startDateTimeCol;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        locationCol.setCellValueFactory(cellData -> cellData.getValue().locationProperty());
+        makeCol.setCellValueFactory(cellData -> cellData.getValue().makeProperty());
     }    
     
 }

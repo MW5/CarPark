@@ -16,15 +16,15 @@
    <children>
       <BorderPane layoutX="206.0" layoutY="85.0" prefHeight="710.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
-            <TableView fx:id="carTable" BorderPane.alignment="CENTER">
+            <TableView fx:id="carTable" prefWidth="1050.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="locationCol" prefWidth="98.0" text="MIEJSCE" />
-                <TableColumn fx:id="makeCol" prefWidth="164.0" text="MARKA" />
-                  <TableColumn fx:id="modelCol" prefWidth="172.0" text="MODEL" />
-                  <TableColumn fx:id="firstNameCol" prefWidth="179.0" text="IMIĘ" />
-                  <TableColumn fx:id="lastNameCol" prefWidth="181.0" text="NAZWISKO" />
-                  <TableColumn fx:id="phoneNumberCol" prefWidth="160.0" text="TELEFON" />
-                  <TableColumn fx:id="startDateTimeCol" prefWidth="245.0" text="DATA I GODZINA WJAZDU" />
+                <TableColumn fx:id="locationCol" prefWidth="63.0" text="MIEJSCE" />
+                <TableColumn fx:id="makeCol" prefWidth="130.0" text="MARKA" />
+                  <TableColumn fx:id="modelCol" prefWidth="168.0" text="MODEL" />
+                  <TableColumn fx:id="firstNameCol" prefWidth="201.0" text="IMIĘ" />
+                  <TableColumn fx:id="lastNameCol" prefWidth="150.0" text="NAZWISKO" />
+                  <TableColumn fx:id="phoneNumberCol" prefWidth="112.0" text="TELEFON" />
+                  <TableColumn fx:id="startDateTimeCol" prefWidth="413.0" text="CZAS WJAZDU" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
