@@ -10,8 +10,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1200.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carpark.View.ListViewController">
     <stylesheets>
@@ -35,8 +35,8 @@
                </columnResizePolicy>
             </TableView>
          </top>
-         <center>
-            <GridPane BorderPane.alignment="CENTER">
+         <right>
+            <GridPane prefWidth="1000.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="591.0" minWidth="10.0" prefWidth="181.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="1019.0" minWidth="10.0" prefWidth="1019.0" />
@@ -123,19 +123,28 @@
                   </Label>
                </children>
             </GridPane>
-         </center>
-         <bottom>
-            <HBox spacing="15.0" BorderPane.alignment="CENTER">
+         </right>
+         <left>
+            <VBox prefHeight="200.0" prefWidth="200.0" spacing="25.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Add">
+                     <VBox.margin>
+                        <Insets left="25.0" top="25.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Edit">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="110.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Delete">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
-               <padding>
-                  <Insets bottom="15.0" left="15.0" top="15.0" />
-               </padding>
-            </HBox>
-         </bottom>
+            </VBox>
+         </left>
       </BorderPane>
    </children>
 </AnchorPane>
