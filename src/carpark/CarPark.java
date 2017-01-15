@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class CarPark extends Application {
     public Stage primaryStage;
-    public Group root; //test
+    public Group root;
     public BorderPane rootLayout;
     public AnchorPane listView;
     public AnchorPane mapView;
@@ -30,7 +30,7 @@ public class CarPark extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("System zarządzania parkingiem");
-        this.root= new Group(); //test
+        this.root= new Group();
 
         initRootLayout();
         showListView();
@@ -45,8 +45,8 @@ public class CarPark extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(CarPark.class.getResource("View/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-            root.getChildren().add(rootLayout);//test
-            Scene scene = new Scene(root); //root layout before
+            root.getChildren().add(rootLayout);
+            Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
