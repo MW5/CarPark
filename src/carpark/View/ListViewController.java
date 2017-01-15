@@ -5,9 +5,14 @@
  */
 package carpark.View;
 
+import carpark.Model.Car;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
@@ -15,10 +20,22 @@ import javafx.fxml.Initializable;
  * @author MW5
  */
 public class ListViewController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private TableView<Car> carTable;
+    @FXML
+    private TableColumn<Car, Integer> locationCol;
+    @FXML
+    private TableColumn<Car, String> makeCol;
+    @FXML
+    private TableColumn<Car, String> modelCol;
+    @FXML
+    private TableColumn<Car, String> firstNameCol;
+    @FXML
+    private TableColumn<Car, String> lastNameCol;
+    @FXML
+    private TableColumn<Car, Integer> phoneNumberCol;
+    @FXML
+    private TableColumn<Car, LocalDateTime> startDateTimeCol;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

@@ -1,8 +1,14 @@
 
 package carpark;
 
+import carpark.Model.Car;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +31,11 @@ public class CarPark extends Application {
     @FXML private Button closeBtn;
     @FXML private Button closeModalYesBtn;
     @FXML private Button closeModalNoBtn;
+    private ObservableList<Car> carData = FXCollections.observableArrayList();
+    
+    public CarPark() {
+        carData.add(new Car(12,"BMW", "e38", "Jan", "Kowalski", 605444222, LocalDateTime.now()));
+    }
     
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -38,6 +49,10 @@ public class CarPark extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    public ObservableList<Car> getCarData() {
+        return carData;
     }
     
     public void initRootLayout() {
