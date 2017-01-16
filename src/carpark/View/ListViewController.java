@@ -8,7 +8,6 @@ package carpark.View;
 import carpark.CarPark;
 import carpark.Model.Car;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,7 +35,7 @@ public class ListViewController implements Initializable {
     @FXML
     private TableColumn<Car, Number> phoneNumberCol; //same here
     @FXML
-    private TableColumn<Car, LocalDateTime> startDateTimeCol;
+    private TableColumn<Car, String> startDateTimeCol;
     
     private CarPark carPark;
     

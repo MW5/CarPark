@@ -6,10 +6,9 @@
 package carpark.Model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -25,7 +24,7 @@ public class Car {
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final IntegerProperty phoneNumber;
-    private final ObjectProperty<LocalDateTime> startDateTime;
+    private final StringProperty startDateTime;
     
     public Car(Integer location,
                 String make,
@@ -40,7 +39,14 @@ public class Car {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.phoneNumber = new SimpleIntegerProperty(phoneNumber);
-        this.startDateTime = new SimpleObjectProperty<LocalDateTime>(startDateTime); 
+         //gets LocalDateTime, sets as String
+        this.startDateTime = new SimpleStringProperty(stringifyDateTime(startDateTime));
+    }
+    //to stringify DateTime
+    private String stringifyDateTime(LocalDateTime localDateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String formattedDateTime = localDateTime.format(formatter);
+        return formattedDateTime;
     }
     //location
     public Integer getLocation() {
@@ -103,16 +109,13 @@ public class Car {
         return phoneNumber;
     }
         //start date
-    public LocalDateTime getStartDateTime() {
+    public String getStartDateTime() {
         return startDateTime.get();
     }
     public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime.set(startDateTime);
+        this.startDateTime.set(stringifyDateTime(startDateTime)); //stringify
     }
-    public ObjectProperty<LocalDateTime> startDateTimeProperty() {
+    public StringProperty startDateTimeProperty() {
         return startDateTime;
     }
-    
-
-    
 }

@@ -4,9 +4,7 @@ package carpark;
 import carpark.Model.Car;
 import carpark.View.ListViewController;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,11 +25,13 @@ public class CarPark extends Application {
     public AnchorPane listView;
     public AnchorPane mapView;
     public AnchorPane closeModal;
+    
     @FXML private Button listBtn;
     @FXML private Button mapBtn;
     @FXML private Button closeBtn;
     @FXML private Button closeModalYesBtn;
     @FXML private Button closeModalNoBtn;
+    
     private ObservableList<Car> carData = FXCollections.observableArrayList();
     
     public CarPark() {
