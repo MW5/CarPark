@@ -2,6 +2,7 @@
 package carpark;
 
 import carpark.Model.Car;
+import carpark.View.ListViewController;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,7 +35,8 @@ public class CarPark extends Application {
     private ObservableList<Car> carData = FXCollections.observableArrayList();
     
     public CarPark() {
-        carData.add(new Car(12,"BMW", "e38", "Jan", "Kowalski", 605444222, LocalDateTime.now()));
+        carData.add(new Car(12,"BMW", "e38", "Jan", "Kowalski", 605444222, LocalDateTime.now())); //test
+        carData.add(new Car(4,"BMW", "e34", "Janka", "Zdzira", 605444222, LocalDateTime.now())); //test
     }
     
     @Override
@@ -71,13 +73,19 @@ public class CarPark extends Application {
     
     public void showListView() {
         try {
+            //load view
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(CarPark.class.getResource("View/ListView.fxml"));
             listView = (AnchorPane) loader.load();
+            //set view
             rootLayout.setCenter(listView);
+            //provide controller access to the main class
+            ListViewController controller = loader.getController();
+            controller.setCarPark(this);
         } catch (IOException e) {
             e.printStackTrace(System.out);
         }
+        
     }
     public void showMapView() {
         try {

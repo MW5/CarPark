@@ -5,6 +5,7 @@
  */
 package carpark.View;
 
+import carpark.CarPark;
 import carpark.Model.Car;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -36,10 +37,25 @@ public class ListViewController implements Initializable {
     private TableColumn<Car, Number> phoneNumberCol; //same here
     @FXML
     private TableColumn<Car, LocalDateTime> startDateTimeCol;
+    
+    private CarPark carPark;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         locationCol.setCellValueFactory(cellData -> cellData.getValue().locationProperty());
         makeCol.setCellValueFactory(cellData -> cellData.getValue().makeProperty());
-    }    
+        modelCol.setCellValueFactory(cellData -> cellData.getValue().modelProperty());
+        firstNameCol.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+        lastNameCol.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+        phoneNumberCol.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
+        startDateTimeCol.setCellValueFactory(cellData -> cellData.getValue().startDateTimeProperty());
+    }
+    
+    public void setCarPark (CarPark carPark) {
+        this.carPark = carPark;
+
+        // set table with data from observable list
+        carTable.setItems(carPark.getCarData());
+    }
     
 }
