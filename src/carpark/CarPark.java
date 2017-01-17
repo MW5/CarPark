@@ -5,22 +5,24 @@ import carpark.Model.Car;
 import carpark.View.ListViewController;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class CarPark extends Application {
     public Stage primaryStage;
-    public Group root;
     public BorderPane rootLayout;
     public AnchorPane listView;
     public AnchorPane mapView;
@@ -38,13 +40,17 @@ public class CarPark extends Application {
         carData.add(new Car(12,"BMW", "e38", "Jan", "Kowalski", 605444222, LocalDateTime.now())); //test
         carData.add(new Car(4,"BMW", "e34", "Janka", "Zdzira", 605444222, LocalDateTime.now())); //test
     }
+    public ObservableList<Car> getCarData() {
+        return carData;
+    }
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
     
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("System zarządzania parkingiem");
-        this.root= new Group();
-
         initRootLayout();
         showListView();
     }
@@ -53,17 +59,14 @@ public class CarPark extends Application {
         launch(args);
     }
     
-    public ObservableList<Car> getCarData() {
-        return carData;
-    }
+
     
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(CarPark.class.getResource("View/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-            root.getChildren().add(rootLayout);
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
@@ -97,18 +100,6 @@ public class CarPark extends Application {
             e.printStackTrace(System.out);
         }
     }
-    public void showCloseModal(){
-        //to confirm close
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(CarPark.class.getResource("View/CloseModal.fxml"));
-            closeModal = (AnchorPane) loader.load();
-            root.getChildren().add(closeModal);
-        } catch (IOException e) {
-            e.printStackTrace(System.out);
-        }
-        
-    }
     
     @FXML
     private void listButtonAction(ActionEvent event){
@@ -126,17 +117,13 @@ public class CarPark extends Application {
     private void closeButtonAction(ActionEvent event) {
         primaryStage = (Stage) closeBtn.getScene().getWindow();
         rootLayout = (BorderPane) closeBtn.getParent().getParent();
-        root = (Group) closeBtn.getParent().getParent().getParent(); //not cool but works :)
-        showCloseModal();
-    }
-    @FXML
-    private void yesCloseModalAction(ActionEvent event) {
-        System.exit(0);
-    }
-    @FXML
-    private void noCloseModalAction(ActionEvent event) {
-        closeModal = (AnchorPane) closeModalNoBtn.getParent().getParent();
-        root = (Group) closeModalNoBtn.getParent().getParent().getParent(); //not cool but works :)
-        root.getChildren().remove(closeModal);
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Zamknij program");
+        alert.setHeaderText(null);
+        alert.setContentText("Czy jesteś pewien, że chcesz zamknąć program?");
+        Optional<ButtonType> confirm = alert.showAndWait();
+        if (confirm.get() == ButtonType.OK) {
+            System.exit(0);
+        }
     }
 }
