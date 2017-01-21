@@ -2,6 +2,7 @@
 package carpark;
 
 import carpark.Model.Car;
+import carpark.View.AddDialogController;
 import carpark.View.EditDialogController;
 import carpark.View.ListViewController;
 import java.io.IOException;
@@ -108,7 +109,7 @@ public class CarPark extends Application {
             Scene scene = new Scene(addDialog);
             dialogStage.setScene(scene);
             
-            EditDialogController controller = loader.getController();
+            AddDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             dialogStage.showAndWait();
         } catch (IOException e) {

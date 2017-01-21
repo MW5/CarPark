@@ -36,36 +36,41 @@ public class EditDialogController implements Initializable {
     
     private Stage dialogStage;
     private Car car;
-    private boolean confirmed = false;
     
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
     public void setCar(Car car) {
         this.car = car;
-        //TO FILL CAR DATA AFTER FIXIND ISSUE
-        //assigns the values to textfields
-//        editDialogLocation.setText(String.valueOf(car.getLocation()));
-//        editDialogRegNum.setText(car.getRegNum());
-//        editDialogMake.setText(car.getMake());
-//        editDialogModel.setText(car.getModel());
-//        editDialogFirstName.setText(car.getFirstName());
-//        editDialogLastName.setText(car.getLastName());
-//        editDialogPhoneNumber.setText(String.valueOf(car.getPhoneNumber()));
-        //fillCarData();
+        fillCarData(car);
     }
-    private void fillCarData() {
-         
+    private void fillCarData(Car car) {
+        //assigns the values to textfields
+        editDialogLocation.setText(String.valueOf(car.getLocation()));
+        editDialogRegNum.setText(car.getRegNum());
+        editDialogMake.setText(car.getMake());
+        editDialogModel.setText(car.getModel());
+        editDialogFirstName.setText(car.getFirstName());
+        editDialogLastName.setText(car.getLastName());
+        editDialogPhoneNumber.setText(String.valueOf(car.getPhoneNumber()));
     }
     public void handleSave() {
         if (validateInput()) {
-            System.out.println("ok"); //testing
+            car.setLocation(Integer.valueOf(editDialogLocation.getText()));
+            car.setRegNum(editDialogRegNum.getText());
+            car.setMake(editDialogMake.getText());
+            car.setModel(editDialogModel.getText());
+            car.setFirstName(editDialogFirstName.getText());
+            car.setLastName(editDialogLastName.getText());
+            car.setPhoneNumber(Integer.valueOf(editDialogPhoneNumber.getText()));
+            dialogStage.close();
         }
     }
     public void handleClose() {
         dialogStage.close();
     }
     private boolean validateInput() {
+        
         return true; //testing
     }
     @Override

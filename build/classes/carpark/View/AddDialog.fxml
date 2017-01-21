@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carpark.View.EditDialogController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carpark.View.AddDialogController">
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0">
          <top>
@@ -31,76 +30,53 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MIEJSCE" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MARKA" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODEL" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IMIE" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NAZWISKO" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TELEFON" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CZAS WJAZDU" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-                  <TextField maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NR REJ" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MARKA" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODEL" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IMIE" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NAZWISKO" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TELEFON" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CZAS WJAZDU" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+                  <TextField fx:id="addDialogLocation" maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextField fx:id="addDialogRegNum" maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <TextField fx:id="addDialogMake" maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <TextField fx:id="addDialogModel" maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <TextField fx:id="addDialogFirstName" maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <TextField fx:id="addDialogLastName" maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label fx:id="addEditDialogLocation" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="addDialogPhoneNumber" maxWidth="380.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <GridPane.margin>
-                        <Insets left="15.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
-                  </Label>
-                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets left="15.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <GridPane.margin>
-                        <Insets left="15.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets left="15.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                     <GridPane.margin>
-                        <Insets left="15.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                     <GridPane.margin>
-                        <Insets left="15.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Czas zapisywany jest automatycznie" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                  </TextField>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Czas zapisywany jest automatycznie" GridPane.columnIndex="1" GridPane.rowIndex="9">
                      <GridPane.margin>
                         <Insets left="15.0" />
                      </GridPane.margin>

@@ -20,33 +20,32 @@ import javafx.stage.Stage;
 public class AddDialogController implements Initializable {
 
     @FXML
-    private TextField editDialogLocation;
+    private TextField addDialogLocation;
     @FXML
-    private TextField editDialogRegNum;
+    private TextField addDialogRegNum;
     @FXML
-    private TextField editDialogMake;
+    private TextField addDialogMake;
     @FXML
-    private TextField editDialogModel;
+    private TextField addDialogModel;
     @FXML
-    private TextField editDialogFirstName;
+    private TextField addDialogFirstName;
     @FXML
-    private TextField editDialogLastName;
+    private TextField addDialogLastName;
     @FXML
-    private TextField editDialogPhoneNumber;
+    private TextField addDialogPhoneNumber;
     
     private Stage dialogStage;
-    private boolean confirmed = false;
     
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-    private void handleSave() {
+    public void handleSave() {
         if (validateInput()) {
             System.out.println("ok"); //testing
         }
     }
-    private void handleClose() {
+    public void handleClose() {
         dialogStage.close();
     }
     private boolean validateInput() {
