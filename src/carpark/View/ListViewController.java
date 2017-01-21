@@ -99,6 +99,22 @@ public class ListViewController implements Initializable {
         }
         return timeDiff;
     }
+    public void addCar() {
+        carPark.showAddDialog();
+    }
+    public void editCar() {
+        int selectedIndex = carTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex>=0) {
+            carPark.showEditDialog(carTable.getSelectionModel().getSelectedItem());
+        } else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(carPark.getPrimaryStage());
+            alert.setTitle("Wybierz samochód");
+            alert.setHeaderText(null);
+            alert.setContentText("Wybierz samochód do edycji");
+            alert.showAndWait();
+        }
+    }
     public void deleteCar() {
         int selectedIndex = carTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex>=0) {

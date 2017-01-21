@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carpark.View.EditDialogController">
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0">
          <top>
@@ -71,7 +70,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label fx:id="addEditDialogLocation" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="15.0" />
                      </GridPane.margin>
@@ -112,12 +111,12 @@
          <bottom>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Zapisz">
+                  <Button mnemonicParsing="false" onAction="#handleSave" prefHeight="50.0" prefWidth="150.0" text="Zapisz">
                      <HBox.margin>
                         <Insets left="70.0" right="70.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Wyjdź">
+                  <Button mnemonicParsing="false" onAction="#handleClose" prefHeight="50.0" prefWidth="150.0" text="Wyjdź">
                      <HBox.margin>
                         <Insets left="70.0" right="70.0" />
                      </HBox.margin>

@@ -2,6 +2,7 @@
 package carpark;
 
 import carpark.Model.Car;
+import carpark.View.EditDialogController;
 import carpark.View.ListViewController;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class CarPark extends Application {
@@ -32,8 +34,6 @@ public class CarPark extends Application {
     @FXML private Button listBtn;
     @FXML private Button mapBtn;
     @FXML private Button closeBtn;
-    @FXML private Button closeModalYesBtn;
-    @FXML private Button closeModalNoBtn;
     
     private ObservableList<Car> carData = FXCollections.observableArrayList();
     
@@ -90,8 +90,54 @@ public class CarPark extends Application {
             controller.setCarPark(this);
         } catch (IOException e) {
             e.printStackTrace(System.out);
+        } 
+    }
+    public void showAddDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(CarPark.class.getResource("View/AddDialog.fxml"));
+            //load view from fxml
+            AnchorPane addDialog = loader.load();
+            //create dialog stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Dodaj samochód");
+            //initializes modality - this stage will be "owned" by primary stage
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            //create scene
+            Scene scene = new Scene(addDialog);
+            dialogStage.setScene(scene);
+            
+            EditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
         }
-        
+    }
+    public void showEditDialog(Car car) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(CarPark.class.getResource("View/EditDialog.fxml"));
+            //load view from fxml
+            AnchorPane editDialog = loader.load();
+            //create dialog stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edytuj samochód");
+            //initializes modality - this stage will be "owned" by primary stage
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            //create scene
+            Scene scene = new Scene(editDialog);
+            dialogStage.setScene(scene);
+            
+            EditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setCar(car);
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
     }
     public void showMapView() {
         try {

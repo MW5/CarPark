@@ -35,12 +35,12 @@
          <left>
             <VBox prefWidth="150.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Dodaj">
+                  <Button mnemonicParsing="false" onAction="#addCar" prefHeight="100.0" prefWidth="100.0" text="Dodaj">
                      <VBox.margin>
                         <Insets left="25.0" top="25.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Edytuj">
+                  <Button mnemonicParsing="false" onAction="#editCar" prefHeight="100.0" prefWidth="100.0" text="Edytuj">
                      <VBox.margin>
                         <Insets left="25.0" top="25.0" />
                      </VBox.margin>
