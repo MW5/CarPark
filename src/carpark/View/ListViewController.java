@@ -30,7 +30,7 @@ public class ListViewController implements Initializable {
     @FXML
     private TableView<Car> carTable;
     @FXML
-    private TableColumn<Car, Number> locationCol; //api mixup thus number...
+    private TableColumn<Car, Number> locationCol; //api mixup, thus number...
     @FXML
     private TableColumn<Car, String> regNumCol;
     @FXML
@@ -138,7 +138,6 @@ public class ListViewController implements Initializable {
             }
         } else {
             Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(carPark.getPrimaryStage());
             alert.setTitle("Wybierz samochód");
             alert.setHeaderText(null);
             alert.setContentText("Wybierz samochód do usunięcia");
