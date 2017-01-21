@@ -19,6 +19,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Car {
     private final IntegerProperty location;
+    private final StringProperty regNum;
     private final StringProperty make;
     private final StringProperty model;
     private final StringProperty firstName;
@@ -27,6 +28,7 @@ public class Car {
     private final StringProperty startDateTime;
     
     public Car(Integer location,
+                String regNum,
                 String make,
                 String model,
                 String firstName,
@@ -34,6 +36,7 @@ public class Car {
                 Integer phoneNumber,
                 LocalDateTime startDateTime) {
         this.location = new SimpleIntegerProperty(location);
+        this.regNum = new SimpleStringProperty(regNum);
         this.make = new SimpleStringProperty(make);
         this.model = new SimpleStringProperty(model);
         this.firstName = new SimpleStringProperty(firstName);
@@ -57,6 +60,16 @@ public class Car {
     }
     public IntegerProperty locationProperty() {
         return location;
+    }
+    //registration number
+    public String getRegNum() {
+        return regNum.get();
+    }
+    public void setRegNum(String regNum) {
+        this.regNum.set(regNum);
+    }
+    public StringProperty regNumProperty() {
+        return regNum;
     }
     //make
     public String getMake() {

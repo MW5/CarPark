@@ -5,6 +5,7 @@ import carpark.Model.Car;
 import carpark.View.ListViewController;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -37,8 +38,10 @@ public class CarPark extends Application {
     private ObservableList<Car> carData = FXCollections.observableArrayList();
     
     public CarPark() {
-        carData.add(new Car(12,"BMW", "e38", "Jan", "Kowalski", 605444222, LocalDateTime.now())); //test
-        carData.add(new Car(4,"BMW", "e34", "Janka", "Zdzira", 605444222, LocalDateTime.now())); //test
+        carData.add(new Car(12,"WE34553", "BMW", "e38", "Jan", "Kowalski", 605444222, LocalDateTime.now())); //test
+        carData.add(new Car(4, "KR73829", "BMW", "e34", "Janka", "Kowalska", 605444222, LocalDateTime.now())); //test
+        carData.add(new Car(6, "KR256SE", "AUDI", "a4", "Grzegorz", "Szcześniak", 605444222, LocalDateTime.of(2004, Month.MARCH, 23, 17, 54))); //test
+        
     }
     public ObservableList<Car> getCarData() {
         return carData;

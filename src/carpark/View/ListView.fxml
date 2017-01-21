@@ -18,8 +18,9 @@
          <right>
             <TableView fx:id="carTable" prefWidth="1050.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="locationCol" prefWidth="63.0" text="MIEJSCE" />
-                <TableColumn fx:id="makeCol" prefWidth="130.0" text="MARKA" />
+                <TableColumn fx:id="locationCol" prefWidth="88.0" text="MIEJSCE" />
+                  <TableColumn fx:id="regNumCol" prefWidth="105.0" text="NR REJ" />
+                <TableColumn fx:id="makeCol" prefWidth="157.0" text="MARKA" />
                   <TableColumn fx:id="modelCol" prefWidth="168.0" text="MODEL" />
                   <TableColumn fx:id="firstNameCol" prefWidth="201.0" text="IMIĘ" />
                   <TableColumn fx:id="lastNameCol" prefWidth="150.0" text="NAZWISKO" />
@@ -34,17 +35,17 @@
          <left>
             <VBox prefWidth="150.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Add">
+                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Dodaj">
                      <VBox.margin>
                         <Insets left="25.0" top="25.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Edit">
+                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Edytuj">
                      <VBox.margin>
                         <Insets left="25.0" top="25.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#deleteCar" prefHeight="100.0" prefWidth="100.0" text="Delete">
+                  <Button mnemonicParsing="false" onAction="#deleteCar" prefHeight="100.0" prefWidth="100.0" text="Usuń">
                      <VBox.margin>
                         <Insets left="25.0" top="25.0" />
                      </VBox.margin>
