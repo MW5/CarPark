@@ -100,12 +100,13 @@ public class ListViewController implements Initializable {
         return timeDiff;
     }
     public void addCar() {
-        carPark.showAddDialog();
+        Car defaultCar = new Car(0 ,"", "", "", "", "", 1, LocalDateTime.now()); //default new car to serve as a blueprint
+        carPark.showAddEditDialog(defaultCar); //location set to 0 distincts between add and edit
     }
     public void editCar() {
         int selectedIndex = carTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex>=0) {
-            carPark.showEditDialog(carTable.getSelectionModel().getSelectedItem());
+            carPark.showAddEditDialog(carTable.getSelectionModel().getSelectedItem());
         } else {
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(carPark.getPrimaryStage());
