@@ -163,7 +163,7 @@ public class AddEditDialogController implements Initializable {
             String addEditLastNameVal, String addEditPhoneNumberVal, String startTime) {
         //MUST CHECK IF IT`S ALREADY PRESENT! can be checked by regnum
         try {
-            String lineToWrite = addEditLocationVal+";"+addEditRegNumVal+";"+
+            String lineToWrite = System.lineSeparator()+addEditLocationVal+";"+addEditRegNumVal+";"+ //separator in front cause reader doesn`t read odd lines...
              addEditMakeVal+";"+addEditModelVal+";"+addEditFirstNameVal+";"+
              addEditLastNameVal+";"+addEditPhoneNumberVal+";"+startTime+System.lineSeparator();
             

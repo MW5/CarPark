@@ -66,9 +66,9 @@ public class CarPark extends Application {
         try {
             FileReader fileReader = new FileReader("./src/carpark/DB/carDB.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            for (int i=0; i<3; i++) { //3 for testing purposes only!!!
+            while(bufferedReader.readLine()!=null) { //for some reason this while skips odd lines ?
                 String oneLine = bufferedReader.readLine();
-                if (oneLine!=null) { // to check if the line is not empty
+                if (oneLine!=null) { // to check if the line is not empty 
                     //splits the line string using regex pattern 
                     String lineSeparated[] = oneLine.split(";");
                     Integer location = Integer.parseInt(lineSeparated[0]);
