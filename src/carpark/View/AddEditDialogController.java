@@ -7,12 +7,13 @@ package carpark.View;
 
 import carpark.CarPark;
 import carpark.Model.Car;
-import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.OutputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -74,19 +75,19 @@ public class AddEditDialogController implements Initializable {
             addEditDialogModel.setText(car.getModel());
             addEditDialogFirstName.setText(car.getFirstName());
             addEditDialogLastName.setText(car.getLastName());
-            addEditDialogPhoneNumber.setText(String.valueOf(car.getPhoneNumber()));
+            addEditDialogPhoneNumber.setText(car.getPhoneNumber());
         }
         addEditDialogStartTime.setText(car.getStartDateTime()); //new and edited cars should have this value
     }
     public void handleSave() {
         //to get values
-        Integer addEditLocationVal = Integer.valueOf(String.valueOf(addEditDialogLocation.getValue()));
+        Integer addEditLocationVal = Integer.parseInt(String.valueOf(addEditDialogLocation.getValue())); //because integer method doesn`t accept objects and string one does
         String addEditRegNumVal = addEditDialogRegNum.getText();
         String addEditMakeVal = addEditDialogMake.getText();
         String addEditModelVal = addEditDialogModel.getText();
         String addEditFirstNameVal = addEditDialogFirstName.getText();
         String addEditLastNameVal = addEditDialogLastName.getText();
-        Integer addEditPhoneNumberVal = Integer.valueOf(addEditDialogPhoneNumber.getText());
+        String addEditPhoneNumberVal = addEditDialogPhoneNumber.getText();
         String addEditStartDateTime = addEditDialogStartTime.getText();
         
         if (validateInput(addEditLocationVal, addEditRegNumVal, addEditMakeVal,
@@ -116,10 +117,10 @@ public class AddEditDialogController implements Initializable {
     }
     private boolean validateInput(Integer addEditLocationVal, String addEditRegNumVal,
             String addEditMakeVal, String addEditModelVal, String addEditFirstNameVal,
-            String addEditLastNameVal, Integer addEditPhoneNumberVal) {
+            String addEditLastNameVal, String addEditPhoneNumberVal) {
         String alertText = ""; //to initialize it
         Boolean incorrectInput = false;
-        if (addEditLocationVal == 0 || addEditLocationVal > parkingLocationsNumber) {
+        if (addEditLocationVal == 0) {
             incorrectInput = true;
             alertText += "\nWybierz lokalizację (1-"+parkingLocationsNumber+")";
         }
@@ -143,9 +144,7 @@ public class AddEditDialogController implements Initializable {
             incorrectInput = true;
             alertText += "\nWprowadź nazwisko pomiędzy (1-20 znaków).";
         }
-        //ADD PROPER PHONE NUM VALIDATION! crash on no value input
-        if (String.valueOf(addEditPhoneNumberVal).length() == 0 ||
-                String.valueOf(addEditPhoneNumberVal).length() > 20) {
+        if (addEditPhoneNumberVal.length() == 0 || addEditPhoneNumberVal.length() > 20) {
             incorrectInput = true;
             alertText += "\nWprowadź numer telefonu (1-20 cyfr).";
         }
@@ -161,17 +160,15 @@ public class AddEditDialogController implements Initializable {
     }
     private void saveToFile (Integer addEditLocationVal, String addEditRegNumVal,
             String addEditMakeVal, String addEditModelVal, String addEditFirstNameVal,
-            String addEditLastNameVal, Integer addEditPhoneNumberVal, String startTime) {
+            String addEditLastNameVal, String addEditPhoneNumberVal, String startTime) {
         //MUST CHECK IF IT`S ALREADY PRESENT! can be checked by regnum
         try {
-            String lineToWrite = "#"+addEditLocationVal+"|"+addEditRegNumVal+"|"+
-             addEditMakeVal+"|"+addEditModelVal+"|"+addEditFirstNameVal+"|"+
-             addEditLastNameVal+"|"+addEditPhoneNumberVal+"|"+startTime+"#"+System.lineSeparator();
+            String lineToWrite = addEditLocationVal+";"+addEditRegNumVal+";"+
+             addEditMakeVal+";"+addEditModelVal+";"+addEditFirstNameVal+";"+
+             addEditLastNameVal+";"+addEditPhoneNumberVal+";"+startTime+System.lineSeparator();
             
-            FileWriter fileWriter = new FileWriter("./src/carpark/DB/carDB.txt", true); //to handle file writing
-            
-            fileWriter.append(lineToWrite);
-            fileWriter.close();
+            OutputStream out = new FileOutputStream(new File("./src/carpark/DB/carDB.txt"), true);
+            out.write(lineToWrite.getBytes(StandardCharsets.UTF_8)); //to omit adding BOM to the beginning of file
         } catch (IOException e) {
             e.printStackTrace(System.out); //CHANGE FOR PROPER ERROR
         }

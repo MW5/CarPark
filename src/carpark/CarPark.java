@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -65,19 +66,34 @@ public class CarPark extends Application {
         try {
             FileReader fileReader = new FileReader("./src/carpark/DB/carDB.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String oneLine = "";
-            int i = 0;
-            while (bufferedReader.readLine() != null) {
-                i++;
-                System.out.println(oneLine+i); //TESTING
+            for (int i=0; i<3; i++) { //3 for testing purposes only!!!
+                String oneLine = bufferedReader.readLine();
+                if (oneLine!=null) { // to check if the line is not empty
+                    //splits the line string using regex pattern 
+                    String lineSeparated[] = oneLine.split(";");
+                    Integer location = Integer.parseInt(lineSeparated[0]);
+                    String regNum = lineSeparated[1];
+                    String make = lineSeparated[2];
+                    String model = lineSeparated[3];
+                    String firstName = lineSeparated[4];
+                    String lastName = lineSeparated[5];
+                    String phoneNumber = lineSeparated[6];
+                    LocalDateTime startTime = parseDateTime(lineSeparated[7]);
+                    //makes a car object from from the text file data
+                    carData.add(new Car(location, regNum, make, model, firstName, lastName, phoneNumber, startTime));
+                }
             }
+            bufferedReader.close();
+            fileReader.close();
         } catch (IOException e) {
             e.printStackTrace(System.out);
         }
-        //TEST
-        carData.add(new Car(12,"WE34553", "BMW", "e38", "Jan", "Kowalski", 605444222, LocalDateTime.now())); //test
-        carData.add(new Car(4, "KR73829", "BMW", "e34", "Janka", "Kowalska", 605444222, LocalDateTime.now())); //test
-        carData.add(new Car(6, "KR256SE", "AUDI", "a4", "Grzegorz", "Szcześniak", 605444222, LocalDateTime.of(2004, Month.MARCH, 23, 17, 54))); //test
+    }
+    //required when loading date from textfile
+    private LocalDateTime parseDateTime(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
+        return localDateTime;
     }
     
     public void initRootLayout() {

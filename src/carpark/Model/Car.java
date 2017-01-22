@@ -24,7 +24,7 @@ public class Car {
     private final StringProperty model;
     private final StringProperty firstName;
     private final StringProperty lastName;
-    private final IntegerProperty phoneNumber;
+    private final StringProperty phoneNumber;
     private final StringProperty startDateTime;
     
     public Car(Integer location,
@@ -33,7 +33,7 @@ public class Car {
                 String model,
                 String firstName,
                 String lastName,
-                Integer phoneNumber,
+                String phoneNumber,
                 LocalDateTime startDateTime) {
         this.location = new SimpleIntegerProperty(location);
         this.regNum = new SimpleStringProperty(regNum);
@@ -41,7 +41,7 @@ public class Car {
         this.model = new SimpleStringProperty(model);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
-        this.phoneNumber = new SimpleIntegerProperty(phoneNumber);
+        this.phoneNumber = new SimpleStringProperty(phoneNumber);
          //gets LocalDateTime, sets as String
         this.startDateTime = new SimpleStringProperty(stringifyDateTime(startDateTime));
     }
@@ -112,13 +112,13 @@ public class Car {
         return lastName;
     }
     //phone
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber.get();
     }
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber.set(phoneNumber);
     }
-    public IntegerProperty phoneNumberProperty() {
+    public StringProperty phoneNumberProperty() {
         return phoneNumber;
     }
         //start date

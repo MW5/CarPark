@@ -42,7 +42,7 @@ public class ListViewController implements Initializable {
     @FXML
     private TableColumn<Car, String> lastNameCol;
     @FXML
-    private TableColumn<Car, Number> phoneNumberCol; //same here
+    private TableColumn<Car, String> phoneNumberCol; //same here
     @FXML
     private TableColumn<Car, String> startDateTimeCol;
     
@@ -100,7 +100,7 @@ public class ListViewController implements Initializable {
         return timeDiff;
     }
     public void addCar() {
-        Car defaultCar = new Car(0 ,"", "", "", "", "", 1, LocalDateTime.now()); //default new car to serve as a blueprint
+        Car defaultCar = new Car(0 ,"", "", "", "", "", "", LocalDateTime.now()); //default new car to serve as a blueprint
         carPark.showAddEditDialog(defaultCar); //location set to 0 distincts between add and edit
     }
     public void editCar() {
