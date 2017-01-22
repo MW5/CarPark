@@ -4,6 +4,8 @@ package carpark;
 import carpark.Model.Car;
 import carpark.View.AddEditDialogController;
 import carpark.View.ListViewController;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -37,12 +39,6 @@ public class CarPark extends Application {
     
     private ObservableList<Car> carData = FXCollections.observableArrayList();
     
-    public CarPark() {
-        carData.add(new Car(12,"WE34553", "BMW", "e38", "Jan", "Kowalski", 605444222, LocalDateTime.now())); //test
-        carData.add(new Car(4, "KR73829", "BMW", "e34", "Janka", "Kowalska", 605444222, LocalDateTime.now())); //test
-        carData.add(new Car(6, "KR256SE", "AUDI", "a4", "Grzegorz", "Szcześniak", 605444222, LocalDateTime.of(2004, Month.MARCH, 23, 17, 54))); //test
-        
-    }
     public ObservableList<Car> getCarData() {
         return carData;
     }
@@ -52,6 +48,7 @@ public class CarPark extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
+        loadFromFile();
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("System zarządzania parkingiem");
         initRootLayout();
@@ -62,7 +59,26 @@ public class CarPark extends Application {
         launch(args);
     }
     
-
+    public void loadFromFile() {
+        //LOADING FROM FILES HERE
+        //DOESN`T SEEM TO READ CORRECTLY
+        try {
+            FileReader fileReader = new FileReader("./src/carpark/DB/carDB.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String oneLine = "";
+            int i = 0;
+            while (bufferedReader.readLine() != null) {
+                i++;
+                System.out.println(oneLine+i); //TESTING
+            }
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+        //TEST
+        carData.add(new Car(12,"WE34553", "BMW", "e38", "Jan", "Kowalski", 605444222, LocalDateTime.now())); //test
+        carData.add(new Car(4, "KR73829", "BMW", "e34", "Janka", "Kowalska", 605444222, LocalDateTime.now())); //test
+        carData.add(new Car(6, "KR256SE", "AUDI", "a4", "Grzegorz", "Szcześniak", 605444222, LocalDateTime.of(2004, Month.MARCH, 23, 17, 54))); //test
+    }
     
     public void initRootLayout() {
         try {
@@ -110,15 +126,18 @@ public class CarPark extends Application {
             
             AddEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            //add new cars to observable list
-            if (car.getLocation() == 0) {
-                carData.add(car);
-            }
+            controller.setCarPark(this); //to let controller add and remove from observable list
             controller.setCar(car);
             dialogStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace(System.out);
         }
+    }
+    public void addToCarData(Car car) {
+        carData.add(car);
+    }
+    public void removeFromCarData(Car car) {
+        carData.remove(car);
     }
     public void showMapView() {
         try {

@@ -5,7 +5,13 @@
  */
 package carpark.View;
 
+import carpark.CarPark;
 import carpark.Model.Car;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -15,6 +21,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -37,29 +44,39 @@ public class AddEditDialogController implements Initializable {
     private TextField addEditDialogLastName;
     @FXML
     private TextField addEditDialogPhoneNumber;
+    @FXML
+    private Text addEditDialogStartTime;
     
     private Stage dialogStage;
     private Car car;
     private final int parkingLocationsNumber = 99; //change later!!!
+    public CarPark carPark;
+    private Boolean editMode = false;
     
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
+    public void setCarPark(CarPark carPark) {
+        this.carPark = carPark;
+    }
     public void setCar(Car car) {
         this.car = car;
-        if (car.getLocation()!=0) {
-            fillCarData(car);
-        }
+        fillCarData(car); 
     }
     private void fillCarData(Car car) {
+        if (car.getLocation()!=0) {
+        //turns edit mode on
+            editMode = true;
         //assigns the values to textfields
-        addEditDialogLocation.setValue(String.valueOf(car.getLocation()));
-        addEditDialogRegNum.setText(car.getRegNum());
-        addEditDialogMake.setText(car.getMake());
-        addEditDialogModel.setText(car.getModel());
-        addEditDialogFirstName.setText(car.getFirstName());
-        addEditDialogLastName.setText(car.getLastName());
-        addEditDialogPhoneNumber.setText(String.valueOf(car.getPhoneNumber()));
+            addEditDialogLocation.setValue(String.valueOf(car.getLocation()));
+            addEditDialogRegNum.setText(car.getRegNum());
+            addEditDialogMake.setText(car.getMake());
+            addEditDialogModel.setText(car.getModel());
+            addEditDialogFirstName.setText(car.getFirstName());
+            addEditDialogLastName.setText(car.getLastName());
+            addEditDialogPhoneNumber.setText(String.valueOf(car.getPhoneNumber()));
+        }
+        addEditDialogStartTime.setText(car.getStartDateTime()); //new and edited cars should have this value
     }
     public void handleSave() {
         //to get values
@@ -70,6 +87,8 @@ public class AddEditDialogController implements Initializable {
         String addEditFirstNameVal = addEditDialogFirstName.getText();
         String addEditLastNameVal = addEditDialogLastName.getText();
         Integer addEditPhoneNumberVal = Integer.valueOf(addEditDialogPhoneNumber.getText());
+        String addEditStartDateTime = addEditDialogStartTime.getText();
+        
         if (validateInput(addEditLocationVal, addEditRegNumVal, addEditMakeVal,
                 addEditModelVal, addEditFirstNameVal, addEditLastNameVal, addEditPhoneNumberVal)) {
             car.setLocation(addEditLocationVal);
@@ -79,13 +98,23 @@ public class AddEditDialogController implements Initializable {
             car.setFirstName(addEditFirstNameVal);
             car.setLastName(addEditLastNameVal);
             car.setPhoneNumber(addEditPhoneNumberVal);
+            
+            saveToFile(addEditLocationVal, addEditRegNumVal, addEditMakeVal,
+                addEditModelVal, addEditFirstNameVal, addEditLastNameVal, addEditPhoneNumberVal,
+                addEditStartDateTime);
+            
+            //if edit mode false
+            if (!editMode) {
+                carPark.addToCarData(car); //adds car to observable list
+            }
+            editMode = false; //edit mode turned off to its default value
             dialogStage.close();
         }
     }
     public void handleClose() {
         dialogStage.close();
     }
-    private boolean validateInput( Integer addEditLocationVal, String addEditRegNumVal,
+    private boolean validateInput(Integer addEditLocationVal, String addEditRegNumVal,
             String addEditMakeVal, String addEditModelVal, String addEditFirstNameVal,
             String addEditLastNameVal, Integer addEditPhoneNumberVal) {
         String alertText = ""; //to initialize it
@@ -129,6 +158,23 @@ public class AddEditDialogController implements Initializable {
             return false;
         }
         return true;
+    }
+    private void saveToFile (Integer addEditLocationVal, String addEditRegNumVal,
+            String addEditMakeVal, String addEditModelVal, String addEditFirstNameVal,
+            String addEditLastNameVal, Integer addEditPhoneNumberVal, String startTime) {
+        //MUST CHECK IF IT`S ALREADY PRESENT! can be checked by regnum
+        try {
+            String lineToWrite = "#"+addEditLocationVal+"|"+addEditRegNumVal+"|"+
+             addEditMakeVal+"|"+addEditModelVal+"|"+addEditFirstNameVal+"|"+
+             addEditLastNameVal+"|"+addEditPhoneNumberVal+"|"+startTime+"#"+System.lineSeparator();
+            
+            FileWriter fileWriter = new FileWriter("./src/carpark/DB/carDB.txt", true); //to handle file writing
+            
+            fileWriter.append(lineToWrite);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace(System.out); //CHANGE FOR PROPER ERROR
+        }
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
