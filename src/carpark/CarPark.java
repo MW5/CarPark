@@ -5,8 +5,12 @@ import carpark.Model.Car;
 import carpark.View.AddEditDialogController;
 import carpark.View.ListViewController;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -93,6 +97,22 @@ public class CarPark extends Application {
             fileReader.close();
         } catch (IOException e) {
             e.printStackTrace(System.out);
+        }
+    }
+    public void updateFile() { //overwrites the whole file
+        try {
+            OutputStream out = new FileOutputStream(new File("./src/carpark/DB/carDB.txt")); //default second argument - false, no append
+            String dataToWrite = "";
+            for (Car car : carData) {
+                dataToWrite += System.lineSeparator()+car.getLocation()+";"+car.getRegNum()+";"+ //separator in front cause reader doesn`t read odd lines...
+                car.getMake()+";"+car.getModel()+";"+car.getFirstName()+";"+
+                car.getLastName()+";"+car.getPhoneNumber()+";"+car.getStartDateTime()+System.lineSeparator();
+               
+            }
+            out.write(dataToWrite.getBytes(StandardCharsets.UTF_8)); //to omit adding BOM to the beginning of file
+            out.close();
+        } catch (IOException e) {
+                e.printStackTrace(System.out); //CHANGE FOR PROPER ERROR
         }
     }
     //required when loading date from textfile

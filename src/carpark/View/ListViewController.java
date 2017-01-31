@@ -136,6 +136,7 @@ public class ListViewController implements Initializable {
             Optional<ButtonType> confirm = alert.showAndWait();
             if (confirm.get() == ButtonType.OK) {
                 carTable.getItems().remove(selectedIndex);
+                carPark.updateFile();
             }
         } else {
             Alert alert = new Alert(AlertType.WARNING);
