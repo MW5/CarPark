@@ -43,6 +43,12 @@ public class CarPark extends Application {
     public ObservableList<Car> getCarData() {
         return carData;
     }
+    public void addToCarData(Car car) {
+        carData.add(car);
+    }
+    public void removeFromCarData(Car car) {
+        carData.remove(car);
+    }
     public Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -148,12 +154,6 @@ public class CarPark extends Application {
         } catch (IOException e) {
             e.printStackTrace(System.out);
         }
-    }
-    public void addToCarData(Car car) {
-        carData.add(car);
-    }
-    public void removeFromCarData(Car car) {
-        carData.remove(car);
     }
     public void showMapView() {
         try {

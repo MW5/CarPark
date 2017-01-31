@@ -16,6 +16,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -100,14 +101,14 @@ public class AddEditDialogController implements Initializable {
             car.setLastName(addEditLastNameVal);
             car.setPhoneNumber(addEditPhoneNumberVal);
             
-            saveToFile(addEditLocationVal, addEditRegNumVal, addEditMakeVal,
-                addEditModelVal, addEditFirstNameVal, addEditLastNameVal, addEditPhoneNumberVal,
-                addEditStartDateTime);
-            
             //if edit mode false
             if (!editMode) {
                 carPark.addToCarData(car); //adds car to observable list
             }
+            
+            //overwrites the file
+            saveToFile(carPark.getCarData()); //saves whole list of cars to the file
+            
             editMode = false; //edit mode turned off to its default value
             dialogStage.close();
         }
@@ -158,21 +159,25 @@ public class AddEditDialogController implements Initializable {
         }
         return true;
     }
-    private void saveToFile (Integer addEditLocationVal, String addEditRegNumVal,
-            String addEditMakeVal, String addEditModelVal, String addEditFirstNameVal,
-            String addEditLastNameVal, String addEditPhoneNumberVal, String startTime) {
-        //MUST CHECK IF IT`S ALREADY PRESENT! can be checked by regnum
+
+    private void saveToFile(ObservableList<Car> carData) { //overwrites the whole file
         try {
-            String lineToWrite = System.lineSeparator()+addEditLocationVal+";"+addEditRegNumVal+";"+ //separator in front cause reader doesn`t read odd lines...
-             addEditMakeVal+";"+addEditModelVal+";"+addEditFirstNameVal+";"+
-             addEditLastNameVal+";"+addEditPhoneNumberVal+";"+startTime+System.lineSeparator();
-            
-            OutputStream out = new FileOutputStream(new File("./src/carpark/DB/carDB.txt"), true);
-            out.write(lineToWrite.getBytes(StandardCharsets.UTF_8)); //to omit adding BOM to the beginning of file
+            OutputStream out = new FileOutputStream(new File("./src/carpark/DB/carDB.txt")); //default second argument - false, no append
+            String dataToWrite = "";
+            for (Car car : carData) {
+                dataToWrite += System.lineSeparator()+car.getLocation()+";"+car.getRegNum()+";"+ //separator in front cause reader doesn`t read odd lines...
+                car.getMake()+";"+car.getModel()+";"+car.getFirstName()+";"+
+                car.getLastName()+";"+car.getPhoneNumber()+";"+car.getStartDateTime()+System.lineSeparator();
+               
+            }
+            out.write(dataToWrite.getBytes(StandardCharsets.UTF_8)); //to omit adding BOM to the beginning of file
+            out.close();
         } catch (IOException e) {
-            e.printStackTrace(System.out); //CHANGE FOR PROPER ERROR
+                e.printStackTrace(System.out); //CHANGE FOR PROPER ERROR
         }
     }
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         addEditDialogLocation.getItems().removeAll(addEditDialogLocation.getItems());
