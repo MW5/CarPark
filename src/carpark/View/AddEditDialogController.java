@@ -39,7 +39,6 @@ public class AddEditDialogController implements Initializable {
     
     private Stage dialogStage;
     private Car car;
-    private final int parkingLocationsNumber = 99; //change later!!!
     public CarPark carPark;
     private Boolean editMode = false;
     
@@ -52,6 +51,21 @@ public class AddEditDialogController implements Initializable {
     public void setCar(Car car) {
         this.car = car;
         fillCarData(car); 
+    }
+    public void setLocationChoices() {
+        addEditDialogLocation.getItems().removeAll(addEditDialogLocation.getItems());
+        addEditDialogLocation.getItems().addAll(makeLocationChoices());
+        addEditDialogLocation.getSelectionModel().select(0);
+    }
+    private ArrayList<Integer> makeLocationChoices() {
+        ArrayList<Integer> locationChoices = new ArrayList();
+        for (int i=1; i<=carPark.getParkingSpacesNum(); i++) {
+            locationChoices.add(i);
+        }
+        for (int i=0; i<carPark.getCarData().size(); i++) {
+            locationChoices.remove(carPark.getCarData().get(i).getLocation());
+        }
+        return locationChoices;
     }
     private void fillCarData(Car car) {
         if (car.getLocation()!=0) {
@@ -147,16 +161,6 @@ public class AddEditDialogController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        addEditDialogLocation.getItems().removeAll(addEditDialogLocation.getItems());
-        addEditDialogLocation.getItems().addAll(makeLocationChoices());
-        addEditDialogLocation.getSelectionModel().select(0);
+        //initializes fxml before loading any setters!!!
     }
-    private ArrayList<Integer> makeLocationChoices() {
-        ArrayList<Integer> locationChoices = new ArrayList();
-        for (int i=1; i<=parkingLocationsNumber; i++) {
-            locationChoices.add(i);
-        }
-        return locationChoices;
-    }
-    
 }

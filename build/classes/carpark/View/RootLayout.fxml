@@ -5,6 +5,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../Style/Stylesheet.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carpark.CarPark">
     <stylesheets>
@@ -13,16 +16,53 @@
     <top>
       <HBox id="top_bar" prefHeight="90.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="listBtn" mnemonicParsing="false" onAction="#listButtonAction" prefHeight="50.0" prefWidth="200.0" text="Lista">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="mapBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#mapButtonAction" prefHeight="50.0" prefWidth="200.0" text="Mapa">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Button>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SYSTEM ZARZĄDZANIA PARKINGIEM">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Poziom zajętości: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text fx:id="fillPercentage" layoutX="30.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0%">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="171.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wolnych miejsc: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text fx:id="emptySpaces" layoutX="216.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="344.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/50">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
             <HBox prefHeight="100.0" HBox.hgrow="ALWAYS" />
             <Button fx:id="closeBtn" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="50.0" prefWidth="200.0" text="Zamknij">
                <HBox.margin>

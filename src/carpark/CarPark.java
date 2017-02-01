@@ -22,10 +22,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -33,11 +33,12 @@ public class CarPark extends Application {
     public Stage primaryStage;
     public BorderPane rootLayout;
     public AnchorPane listView;
-    public AnchorPane mapView;
     public AnchorPane closeModal;
-    
-    @FXML private Button listBtn;
-    @FXML private Button mapBtn;
+    private final Integer parkingSpacesNum = 50;
+    @FXML
+    public Text fillPercentage;
+    @FXML
+    public Text emptySpaces;
     
     private ObservableList<Car> carData = FXCollections.observableArrayList();
     
@@ -53,7 +54,9 @@ public class CarPark extends Application {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-    
+    public Integer getParkingSpacesNum() {
+        return parkingSpacesNum;
+    }
     @Override
     public void start(Stage primaryStage) throws Exception {
         loadFromFile();
@@ -165,34 +168,12 @@ public class CarPark extends Application {
             controller.setDialogStage(dialogStage);
             controller.setCarPark(this); //to let controller add and remove from observable list
             controller.setCar(car);
+            controller.setLocationChoices();
             dialogStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace(System.out);
         }
-    }
-    public void showMapView() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(CarPark.class.getResource("View/MapView.fxml"));
-            mapView = (AnchorPane) loader.load();
-            rootLayout.setCenter(mapView);
-        } catch (IOException e) {
-            e.printStackTrace(System.out);
-        }
-    }
-    
-    @FXML
-    public void listButtonAction(){
-        primaryStage = (Stage) listBtn.getScene().getWindow(); //because action event creates anonymous inner class
-        rootLayout = (BorderPane) listBtn.getParent().getParent();
-        showListView();
-    }
-    @FXML
-    public void mapButtonAction(){
-        primaryStage = (Stage) mapBtn.getScene().getWindow(); //because action event creates anonymous inner class
-        rootLayout = (BorderPane) mapBtn.getParent().getParent();
-        showMapView();
-    }
+    }  
     @FXML
     public void closeButtonAction() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
