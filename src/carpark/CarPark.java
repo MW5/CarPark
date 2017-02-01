@@ -12,13 +12,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -40,7 +38,6 @@ public class CarPark extends Application {
     
     @FXML private Button listBtn;
     @FXML private Button mapBtn;
-    @FXML private Button closeBtn;
     
     private ObservableList<Car> carData = FXCollections.observableArrayList();
     
@@ -71,8 +68,6 @@ public class CarPark extends Application {
     }
     
     public void loadFromFile() {
-        //LOADING FROM FILES HERE
-        //DOESN`T SEEM TO READ CORRECTLY
         try {
             FileReader fileReader = new FileReader("./src/carpark/DB/carDB.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -187,21 +182,19 @@ public class CarPark extends Application {
     }
     
     @FXML
-    private void listButtonAction(ActionEvent event){
+    public void listButtonAction(){
         primaryStage = (Stage) listBtn.getScene().getWindow(); //because action event creates anonymous inner class
         rootLayout = (BorderPane) listBtn.getParent().getParent();
         showListView();
     }
     @FXML
-    private void mapButtonAction(ActionEvent event){
+    public void mapButtonAction(){
         primaryStage = (Stage) mapBtn.getScene().getWindow(); //because action event creates anonymous inner class
         rootLayout = (BorderPane) mapBtn.getParent().getParent();
         showMapView();
     }
     @FXML
-    private void closeButtonAction(ActionEvent event) {
-        primaryStage = (Stage) closeBtn.getScene().getWindow();
-        rootLayout = (BorderPane) closeBtn.getParent().getParent();
+    public void closeButtonAction() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Zamknij program");
         alert.setHeaderText(null);

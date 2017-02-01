@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package carpark.View;
 
 import carpark.CarPark;
@@ -83,19 +78,19 @@ public class ListViewController implements Initializable {
         long hours = ChronoUnit.HOURS.between(startTime, exitTime);
         long minutes = ChronoUnit.MINUTES.between(startTime, exitTime);
         if (years!=0) {
-            timeDiff="\nLat: "+String.valueOf(years);
+            timeDiff="\n    Lat: "+String.valueOf(years);
         }
         if (months!=0) {
-            timeDiff+="\nMiesięcy: "+String.valueOf(months);
+            timeDiff+="\n   Miesięcy: "+String.valueOf(months);
         }
         if (days!=0) {
-            timeDiff+="\nDni: "+String.valueOf(days);
+            timeDiff+="\n   Dni: "+String.valueOf(days);
         }
         if (hours!=0) {
-            timeDiff+="\nGodzin: "+String.valueOf(hours);
+            timeDiff+="\n   Godzin: "+String.valueOf(hours);
         }
         if (minutes!=0) {
-            timeDiff+="\nMinut: "+String.valueOf(minutes);
+            timeDiff+="\n   Minut: "+String.valueOf(minutes);
         }
         return timeDiff;
     }

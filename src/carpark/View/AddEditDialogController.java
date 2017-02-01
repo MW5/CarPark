@@ -1,22 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the addEditor.
- */
 package carpark.View;
 
 import carpark.CarPark;
 import carpark.Model.Car;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -89,7 +77,6 @@ public class AddEditDialogController implements Initializable {
         String addEditFirstNameVal = addEditDialogFirstName.getText();
         String addEditLastNameVal = addEditDialogLastName.getText();
         String addEditPhoneNumberVal = addEditDialogPhoneNumber.getText();
-        String addEditStartDateTime = addEditDialogStartTime.getText();
         
         if (validateInput(addEditRegNumVal, addEditMakeVal,
                 addEditModelVal, addEditFirstNameVal, addEditLastNameVal, addEditPhoneNumberVal)) {
@@ -119,6 +106,7 @@ public class AddEditDialogController implements Initializable {
     private boolean validateInput(String addEditRegNumVal,
             String addEditMakeVal, String addEditModelVal, String addEditFirstNameVal,
             String addEditLastNameVal, String addEditPhoneNumberVal) {
+        String regex = "[0-9]+"; //to validate digits in phone number
         String alertText = ""; //to initialize it
         Boolean incorrectInput = false;
         if (addEditRegNumVal.length() != 7) {
@@ -141,7 +129,8 @@ public class AddEditDialogController implements Initializable {
             incorrectInput = true;
             alertText += "\nWprowadź nazwisko pomiędzy (1-20 znaków).";
         }
-        if (addEditPhoneNumberVal.length() == 0 || addEditPhoneNumberVal.length() > 20) {
+        if (addEditPhoneNumberVal.length() == 0 || addEditPhoneNumberVal.length() > 20 ||
+                !addEditPhoneNumberVal.matches(regex)) {
             incorrectInput = true;
             alertText += "\nWprowadź numer telefonu (1-20 cyfr).";
         }
