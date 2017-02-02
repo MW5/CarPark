@@ -33,7 +33,7 @@
             </TableView>
          </right>
          <left>
-            <VBox prefWidth="150.0" BorderPane.alignment="CENTER">
+            <VBox id="list_view_left_bar" prefWidth="150.0" BorderPane.alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#addCar" prefHeight="100.0" prefWidth="100.0" text="Dodaj">
                      <VBox.margin>

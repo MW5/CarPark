@@ -35,7 +35,7 @@ public class InfoBarController implements Initializable {
         Integer fillPer = carPark.getCarData().size()*100/carPark.getParkingSpacesNum();
         Integer emptySp = carPark.getParkingSpacesNum()-carPark.getCarData().size();
         fillPercentage.setText(String.valueOf(fillPer));
-        emptySpaces.setText(String.valueOf(emptySp));
+        emptySpaces.setText(String.valueOf(emptySp)+"/"+carPark.getParkingSpacesNum());
     }
     @FXML
     public void closeButtonAction() {

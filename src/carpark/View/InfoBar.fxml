@@ -9,26 +9,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="90.0" prefWidth="1200.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="carpark.View.InfoBarController">
+<AnchorPane prefHeight="90.0" prefWidth="1200.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carpark.View.InfoBarController">
     <stylesheets>
         <URL value="@/carpark/Style/Stylesheet.css" />
     </stylesheets>
    <children>
       <HBox id="top_bar" prefHeight="90.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="980.0">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SYSTEM ZARZĄDZANIA PARKINGIEM">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="27.0" top="25.0" />
+               </HBox.margin>
+            </Text>
+            <VBox prefHeight="90.0" prefWidth="420.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SYSTEM ZARZĄDZANIA PARKINGIEM">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="20.0" top="10.0" />
-                     </VBox.margin>
-                  </Text>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0">
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Poziom zajętości: ">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Poziom zajętości: ">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -36,17 +36,21 @@
                               <Insets left="20.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fx:id="fillPercentage" layoutX="30.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                        <Text fx:id="fillPercentage" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text layoutX="171.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="\%">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text layoutX="171.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wolnych miejsc: ">
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="45.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="171.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wolne miejsca: ">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -54,12 +58,7 @@
                               <Insets left="20.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fx:id="emptySpaces" layoutX="216.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="344.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/50">
+                        <Text fx:id="emptySpaces" fill="WHITE" layoutX="216.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
                            <font>
                               <Font size="18.0" />
                            </font>
