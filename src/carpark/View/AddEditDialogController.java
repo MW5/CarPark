@@ -105,6 +105,7 @@ public class AddEditDialogController implements Initializable {
             //if edit mode false
             if (!editMode) {
                 carPark.addToCarData(car); //adds car to observable list
+                carPark.initInfoBar();
             }
             
             //overwrites the file with the new state

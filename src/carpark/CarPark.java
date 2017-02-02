@@ -3,6 +3,7 @@ package carpark;
 
 import carpark.Model.Car;
 import carpark.View.AddEditDialogController;
+import carpark.View.InfoBarController;
 import carpark.View.ListViewController;
 import java.io.BufferedReader;
 import java.io.File;
@@ -33,12 +34,9 @@ public class CarPark extends Application {
     public Stage primaryStage;
     public BorderPane rootLayout;
     public AnchorPane listView;
+    public AnchorPane infoBar;
     public AnchorPane closeModal;
     private final Integer parkingSpacesNum = 50;
-    @FXML
-    public Text fillPercentage;
-    @FXML
-    public Text emptySpaces;
     
     private ObservableList<Car> carData = FXCollections.observableArrayList();
     
@@ -63,7 +61,8 @@ public class CarPark extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("System zarządzania parkingiem");
         initRootLayout();
-        showListView();
+        initInfoBar();
+        initListView();
     }
 
     public static void main(String[] args) {
@@ -132,8 +131,21 @@ public class CarPark extends Application {
             e.printStackTrace(System.out);
         }
     }
+    public void initInfoBar() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(CarPark.class.getResource("View/InfoBar.fxml"));
+            infoBar = (AnchorPane) loader.load();
+            rootLayout.setTop(infoBar);
+            InfoBarController controller = loader.getController();
+            controller.setCarPark(this);
+            controller.updateSpaceInfo();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+    }
     
-    public void showListView() {
+    public void initListView() {
         try {
             //load view
             FXMLLoader loader = new FXMLLoader();
@@ -148,6 +160,7 @@ public class CarPark extends Application {
             e.printStackTrace(System.out);
         } 
     }
+
     public void showAddEditDialog(Car car) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -174,15 +187,4 @@ public class CarPark extends Application {
             e.printStackTrace(System.out);
         }
     }  
-    @FXML
-    public void closeButtonAction() {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Zamknij program");
-        alert.setHeaderText(null);
-        alert.setContentText("Czy jesteś pewien, że chcesz zamknąć program?");
-        Optional<ButtonType> confirm = alert.showAndWait();
-        if (confirm.get() == ButtonType.OK) {
-            System.exit(0);
-        }
-    }
 }
