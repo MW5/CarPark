@@ -3,6 +3,7 @@ package carpark.View;
 import carpark.CarPark;
 import carpark.Model.Car;
 import java.awt.print.PageFormat;
+import java.awt.print.PrinterException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -155,27 +156,27 @@ public class ListViewController implements Initializable {
             alert.showAndWait();
         }
     }
-    public void printReport() throws Exception {
-        Integer fillPer = carPark.getCarData().size()*100/carPark.getParkingSpacesNum();
-        Integer emptySp = carPark.getParkingSpacesNum()-carPark.getCarData().size();
-        String toPdf = "Data drukowania raportu: "+stringifyDateTime(LocalDateTime.now())+System.lineSeparator()+
-                "Poziom zajętości: "+fillPer+"%"+System.lineSeparator()+
-                "Wolnych miejsc: "+emptySp+"/"+carPark.getParkingSpacesNum()+System.lineSeparator()
-                +System.lineSeparator()+"Dane według kolejności:"+System.lineSeparator()+
-                "Miejsce postoju, Numer rejestracyjny, Imię, Nazwisko, Numer telefonu, Czas wjazdu"
-                +System.lineSeparator();
-        JTextPane textPane = new JTextPane();
-        for(Car car : carPark.getCarData()) {
-            toPdf+=System.lineSeparator()+car.getLocation()+"   "+
-                    car.getRegNum()+"   "+car.getFirstName()+"   "+
-                    car.getLastName()+"   "+car.getPhoneNumber()+"   "+
-                    car.getStartDateTime()+System.lineSeparator();
+    public void printReport() {
+        try {
+            Integer fillPer = carPark.getCarData().size()*100/carPark.getParkingSpacesNum();
+            Integer emptySp = carPark.getParkingSpacesNum()-carPark.getCarData().size();
+            String toPdf = "Data drukowania raportu: "+stringifyDateTime(LocalDateTime.now())+System.lineSeparator()+
+                    "Poziom zajętości: "+fillPer+"%"+System.lineSeparator()+
+                    "Wolnych miejsc: "+emptySp+"/"+carPark.getParkingSpacesNum()+System.lineSeparator()
+                    +System.lineSeparator()+"Dane według kolejności:"+System.lineSeparator()+
+                    "Miejsce postoju, Numer rejestracyjny, Imię, Nazwisko, Numer telefonu, Czas wjazdu"
+                    +System.lineSeparator();
+            JTextPane textPane = new JTextPane();
+            for(Car car : carPark.getCarData()) {
+                toPdf+=System.lineSeparator()+car.getLocation()+"   "+
+                        car.getRegNum()+"   "+car.getFirstName()+"   "+
+                        car.getLastName()+"   "+car.getPhoneNumber()+"   "+
+                        car.getStartDateTime()+System.lineSeparator();
+            }
+            textPane.setText(toPdf);
+            textPane.print(null, null, false, null, null, false);
+        } catch (PrinterException e) {
+            e.printStackTrace(System.out);
         }
-        textPane.setText(toPdf);
-        textPane.print(null, null, false, null, null, false);
-
-
-        //textPane.print();
-
     } 
 }
