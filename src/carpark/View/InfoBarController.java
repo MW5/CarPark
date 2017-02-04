@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package carpark.View;
 
 import carpark.CarPark;
@@ -39,18 +34,19 @@ public class InfoBarController implements Initializable {
     }
     @FXML
     public void closeButtonAction() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        ButtonType ok = new ButtonType("Zatwierdź");
+        ButtonType cancel = new ButtonType("Anuluj");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ok, cancel);
         alert.setTitle("Zamknij program");
         alert.setHeaderText(null);
         alert.setContentText("Czy jesteś pewien, że chcesz zamknąć program?");
         Optional<ButtonType> confirm = alert.showAndWait();
-        if (confirm.get() == ButtonType.OK) {
+        if (confirm.get() == ok) {
             System.exit(0);
         }
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
     
 }

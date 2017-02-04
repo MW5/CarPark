@@ -1,4 +1,3 @@
-
 package carpark;
 
 import carpark.Model.Car;
@@ -14,19 +13,15 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -73,10 +68,10 @@ public class CarPark extends Application {
         try {
             FileReader fileReader = new FileReader("./src/carpark/DB/carDB.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            while(bufferedReader.readLine()!=null) { //for some reason this while skips odd lines ?
+            while(bufferedReader.readLine()!=null) { //z jakiegoś powodu pomija nieparzyste linie
                 String oneLine = bufferedReader.readLine();
-                if (oneLine!=null) { // to check if the line is not empty 
-                    //splits the line string using regex pattern 
+                if (oneLine!=null) { // sprawdza czy nie dotarł do końca pliku
+                    //za pomocą regexa rozdziela linię
                     String lineSeparated[] = oneLine.split(";");
                     Integer location = Integer.parseInt(lineSeparated[0]);
                     String regNum = lineSeparated[1];
@@ -85,8 +80,8 @@ public class CarPark extends Application {
                     String firstName = lineSeparated[4];
                     String lastName = lineSeparated[5];
                     String phoneNumber = lineSeparated[6];
-                    LocalDateTime startTime = parseDateTime(lineSeparated[7]);
-                    //makes a car object from from the text file data
+                    LocalDateTime startTime = toLocalDateTime(lineSeparated[7]);
+                    //tworzy obiekt na podstawie pobranych z pliku danych
                     carData.add(new Car(location, regNum, make, model, firstName, lastName, phoneNumber, startTime));
                 }
             }
@@ -96,24 +91,24 @@ public class CarPark extends Application {
             e.printStackTrace(System.out);
         }
     }
-    public void updateFile() { //overwrites the whole file
+    public void updateFile() { //nadpisuje cały plik
         try {
-            OutputStream out = new FileOutputStream(new File("./src/carpark/DB/carDB.txt")); //default second argument - false, no append
+            OutputStream out = new FileOutputStream(new File("./src/carpark/DB/carDB.txt"));
             String dataToWrite = "";
             for (Car car : carData) {
-                dataToWrite += System.lineSeparator()+car.getLocation()+";"+car.getRegNum()+";"+ //separator in front cause reader doesn`t read odd lines...
+                dataToWrite += System.lineSeparator()+car.getLocation()+";"+car.getRegNum()+";"+
                 car.getMake()+";"+car.getModel()+";"+car.getFirstName()+";"+
                 car.getLastName()+";"+car.getPhoneNumber()+";"+car.getStartDateTime()+System.lineSeparator();
                
             }
-            out.write(dataToWrite.getBytes(StandardCharsets.UTF_8)); //to omit adding BOM to the beginning of file
+            out.write(dataToWrite.getBytes(StandardCharsets.UTF_8)); //dzięki temu nie dodaje BOM (Byte Order Mark)
             out.close();
         } catch (IOException e) {
-                e.printStackTrace(System.out); //CHANGE FOR PROPER ERROR
+                e.printStackTrace(System.out);
         }
     }
-    //required when loading date from textfile
-    private LocalDateTime parseDateTime(String dateTime) {
+    //zmienia typ pobranej z pliku daty
+    private LocalDateTime toLocalDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
         return localDateTime;
@@ -147,13 +142,10 @@ public class CarPark extends Application {
     
     public void initListView() {
         try {
-            //load view
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(CarPark.class.getResource("View/ListView.fxml"));
             listView = (AnchorPane) loader.load();
-            //set view
             rootLayout.setCenter(listView);
-            //provide controller access to the main class
             ListViewController controller = loader.getController();
             controller.setCarPark(this);
         } catch (IOException e) {
@@ -165,21 +157,17 @@ public class CarPark extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(CarPark.class.getResource("View/AddEditDialog.fxml"));
-            //load view from fxml
             AnchorPane addEditDialog = loader.load();
-            //create dialog stage
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Dodaj/Edytuj samochód");
-            //initializes modality - this stage will be "owned" by primary stage
+            //ustawia właściciela okna dialogowego
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
-            //create scene
             Scene scene = new Scene(addEditDialog);
             dialogStage.setScene(scene);
-            
             AddEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setCarPark(this); //to let controller add and remove from observable list
+            controller.setCarPark(this); //klasa okna dialogowego musi mieć observable list carParku
             controller.setCar(car);
             controller.setLocationChoices();
             dialogStage.showAndWait();

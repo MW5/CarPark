@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package carpark.Model;
 
 import java.time.LocalDateTime;
@@ -35,6 +30,7 @@ public class Car {
                 String lastName,
                 String phoneNumber,
                 LocalDateTime startDateTime) {
+        //przy tworezeniu obiektu klasy Car ustawiamy odrazu pola string property
         this.location = new SimpleIntegerProperty(location);
         this.regNum = new SimpleStringProperty(regNum);
         this.make = new SimpleStringProperty(make);
@@ -42,16 +38,15 @@ public class Car {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
-         //gets LocalDateTime, sets as String
         this.startDateTime = new SimpleStringProperty(stringifyDateTime(startDateTime));
     }
-    //to stringify DateTime
+    //zmienia date z dateTime na string
     private String stringifyDateTime(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         String formattedDateTime = localDateTime.format(formatter);
         return formattedDateTime;
     }
-    //location
+    //miejsca
     public Integer getLocation() {
         return location.get();
     }
@@ -61,7 +56,7 @@ public class Car {
     public IntegerProperty locationProperty() {
         return location;
     }
-    //registration number
+    //numer rejestracyjny
     public String getRegNum() {
         return regNum.get();
     }
@@ -71,7 +66,7 @@ public class Car {
     public StringProperty regNumProperty() {
         return regNum;
     }
-    //make
+    //marka
     public String getMake() {
         return make.get();
     }
@@ -91,7 +86,7 @@ public class Car {
     public StringProperty modelProperty() {
         return model;
     }
-    //first name
+    //imię
     public String getFirstName() {
         return firstName.get();
     }
@@ -101,7 +96,7 @@ public class Car {
     public StringProperty firstNameProperty() {
         return firstName;
     }
-    //last name
+    //nazwisko
     public String getLastName() {
         return lastName.get();
     }
@@ -111,7 +106,7 @@ public class Car {
     public StringProperty lastNameProperty() {
         return lastName;
     }
-    //phone
+    //telefon
     public String getPhoneNumber() {
         return phoneNumber.get();
     }
@@ -121,12 +116,12 @@ public class Car {
     public StringProperty phoneNumberProperty() {
         return phoneNumber;
     }
-        //start date
+    //data rozpoczęcia parkowania
     public String getStartDateTime() {
         return startDateTime.get();
     }
     public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime.set(stringifyDateTime(startDateTime)); //stringify
+        this.startDateTime.set(stringifyDateTime(startDateTime));
     }
     public StringProperty startDateTimeProperty() {
         return startDateTime;

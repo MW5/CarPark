@@ -69,9 +69,9 @@ public class AddEditDialogController implements Initializable {
     }
     private void fillCarData(Car car) {
         if (car.getLocation()!=0) {
-        //turns edit mode on
+        //włącza tryb edycji jeśli location nie jest równe zero
             editMode = true;
-        //assigns the values to textfields
+        //ustawia wartości dla pól tekstowych
             addEditDialogLocation.setValue(String.valueOf(car.getLocation()));
             addEditDialogRegNum.setText(car.getRegNum());
             addEditDialogMake.setText(car.getMake());
@@ -80,11 +80,12 @@ public class AddEditDialogController implements Initializable {
             addEditDialogLastName.setText(car.getLastName());
             addEditDialogPhoneNumber.setText(car.getPhoneNumber());
         }
-        addEditDialogStartTime.setText(car.getStartDateTime()); //new and edited cars should have this value
+        addEditDialogStartTime.setText(car.getStartDateTime()); //samochody nowe oraz edytowane mają tą wartość
     }
     public void handleSave() {
-        //to get values
-        Integer addEditLocationVal = Integer.parseInt(String.valueOf(addEditDialogLocation.getValue())); //because integer method doesn`t accept objects and string one does
+        //pobranie wartości z pól tekstowych
+            //metoda integer nie akceptuje obiektow, dlatego najpierw z wartości robię stringa
+        Integer addEditLocationVal = Integer.parseInt(String.valueOf(addEditDialogLocation.getValue()));
         String addEditRegNumVal = addEditDialogRegNum.getText();
         String addEditMakeVal = addEditDialogMake.getText();
         String addEditModelVal = addEditDialogModel.getText();
@@ -102,16 +103,15 @@ public class AddEditDialogController implements Initializable {
             car.setLastName(addEditLastNameVal);
             car.setPhoneNumber(addEditPhoneNumberVal);
             
-            //if edit mode false
+            //jeśli editMode==false to dodajemy nowy samochód
             if (!editMode) {
-                carPark.addToCarData(car); //adds car to observable list
-                carPark.initInfoBar();
+                carPark.addToCarData(car); //samochód zostaje dodany do observable list
+                carPark.initInfoBar(); //odświeżamy informacje na górnym pasku
             }
             
-            //overwrites the file with the new state
-            carPark.updateFile(); //saves whole list of cars to the file
+            carPark.updateFile(); //nadpisje cały plik nowym stanem samochodów
             
-            editMode = false; //edit mode turned off to its default value
+            editMode = false; //editMode wraca do swojej domyślnej wartości
             dialogStage.close();
         }
     }
@@ -121,8 +121,8 @@ public class AddEditDialogController implements Initializable {
     private boolean validateInput(String addEditRegNumVal,
             String addEditMakeVal, String addEditModelVal, String addEditFirstNameVal,
             String addEditLastNameVal, String addEditPhoneNumberVal) {
-        String regex = "[0-9]+"; //to validate digits in phone number
-        String alertText = ""; //to initialize it
+        String regex = "[0-9]+"; //do walidacji numeru telefonu
+        String alertText = ""; //żeby dodawać do zmiennej muszę jej nadać jakąś wartość
         Boolean incorrectInput = false;
         if (addEditRegNumVal.length() != 7) {
             incorrectInput = true;
@@ -162,6 +162,6 @@ public class AddEditDialogController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //initializes fxml before loading any setters!!!
+        //inicjuję plik fxml wartościami, metoda kontrolera javaFx
     }
 }

@@ -2,19 +2,27 @@ package carpark.View;
 
 import carpark.CarPark;
 import carpark.Model.Car;
+import java.awt.print.PageFormat;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javax.swing.JTextPane;
 
 /**
  * FXML Controller class
@@ -25,7 +33,7 @@ public class ListViewController implements Initializable {
     @FXML
     private TableView<Car> carTable;
     @FXML
-    private TableColumn<Car, Number> locationCol; //api mixup, thus number...
+    private TableColumn<Car, Number> locationCol; //number nie integer bo tak jest w api
     @FXML
     private TableColumn<Car, String> regNumCol;
     @FXML
@@ -37,7 +45,7 @@ public class ListViewController implements Initializable {
     @FXML
     private TableColumn<Car, String> lastNameCol;
     @FXML
-    private TableColumn<Car, String> phoneNumberCol; //same here
+    private TableColumn<Car, String> phoneNumberCol;
     @FXML
     private TableColumn<Car, String> startDateTimeCol;
     
@@ -45,6 +53,7 @@ public class ListViewController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //inicjalizacja wierszy tabeli, wymagane są typy Property
         locationCol.setCellValueFactory(cellData -> cellData.getValue().locationProperty());
         regNumCol.setCellValueFactory(cellData -> cellData.getValue().regNumProperty());
         makeCol.setCellValueFactory(cellData -> cellData.getValue().makeProperty());
@@ -57,7 +66,7 @@ public class ListViewController implements Initializable {
     
     public void setCarPark (CarPark carPark) {
         this.carPark = carPark;
-        // set table with data from observable list
+        // umieszcza w tabeli samochody z observable list
         carTable.setItems(carPark.getCarData());
     }
     private String stringifyDateTime(LocalDateTime localDateTime) {
@@ -95,8 +104,11 @@ public class ListViewController implements Initializable {
         return timeDiff;
     }
     public void addCar() {
-        Car defaultCar = new Car(0 ,"", "", "", "", "", "", LocalDateTime.now()); //default new car to serve as a blueprint
-        carPark.showAddEditDialog(defaultCar); //location set to 0 distincts between add and edit
+        //pusty nowy samochód który podczas dodawania zostanie wypełniony danymi, lub usunięty
+        //location jest ustawione na zero bo addEditDialogController rozróżnia czy samochód jest
+        //nowy czy edytowany
+        Car defaultCar = new Car(0 ,"", "", "", "", "", "", LocalDateTime.now()); 
+        carPark.showAddEditDialog(defaultCar); 
     }
     public void editCar() {
         int selectedIndex = carTable.getSelectionModel().getSelectedIndex();
@@ -114,25 +126,26 @@ public class ListViewController implements Initializable {
     public void deleteCar() {
         int selectedIndex = carTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex>=0) {
-            //string times start and car exit(present)
             String startTimeString = carTable.getSelectionModel().getSelectedItem().getStartDateTime();
             String exitTimeString = stringifyDateTime(LocalDateTime.now());
-            //parse startTime from to string for calculations
+            //daty klasy localDateTime potrzebne są do kalkulacji przez ChronoUnit
             LocalDateTime startTime = parseDateTime(startTimeString);
             LocalDateTime exitTime = parseDateTime(exitTimeString);
-            
-            Alert alert = new Alert(AlertType.CONFIRMATION);
+            //tworzę nowe przyciski których użyję zamiast domyślnych dla alertu
+            ButtonType cancel = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType ok = new ButtonType("Zatwierdź", ButtonBar.ButtonData.OK_DONE);
+            Alert alert = new Alert(AlertType.CONFIRMATION, "", ok, cancel);
             alert.setTitle("Usuń samochód");
             alert.setHeaderText("Data wjazdu: "+ startTimeString
                     +"\nObecny czas: "+ exitTimeString
                     +"\nCzas postoju: "+ timeDifference(startTime, exitTime));
             alert.setContentText("Czy jesteś pewien, że chcesz usunąć samochód o"
                      +" numerze rejestracyjnym "+carTable.getSelectionModel().getSelectedItem().getRegNum()+"?");
-            Optional<ButtonType> confirm = alert.showAndWait();
-            if (confirm.get() == ButtonType.OK) {
+            Optional<ButtonType> confirm = alert.showAndWait(); //czeka na wybór 
+            if (confirm.get() == ok) {
                 carTable.getItems().remove(selectedIndex);
                 carPark.updateFile();
-                carPark.initInfoBar();
+                carPark.initInfoBar(); //odświeża pasek na górze
             }
         } else {
             Alert alert = new Alert(AlertType.WARNING);
@@ -142,5 +155,27 @@ public class ListViewController implements Initializable {
             alert.showAndWait();
         }
     }
-    
+    public void printReport() throws Exception {
+        Integer fillPer = carPark.getCarData().size()*100/carPark.getParkingSpacesNum();
+        Integer emptySp = carPark.getParkingSpacesNum()-carPark.getCarData().size();
+        String toPdf = "Data drukowania raportu: "+stringifyDateTime(LocalDateTime.now())+System.lineSeparator()+
+                "Poziom zajętości: "+fillPer+"%"+System.lineSeparator()+
+                "Wolnych miejsc: "+emptySp+"/"+carPark.getParkingSpacesNum()+System.lineSeparator()
+                +System.lineSeparator()+"Dane według kolejności:"+System.lineSeparator()+
+                "Miejsce postoju, Numer rejestracyjny, Imię, Nazwisko, Numer telefonu, Czas wjazdu"
+                +System.lineSeparator();
+        JTextPane textPane = new JTextPane();
+        for(Car car : carPark.getCarData()) {
+            toPdf+=System.lineSeparator()+car.getLocation()+"   "+
+                    car.getRegNum()+"   "+car.getFirstName()+"   "+
+                    car.getLastName()+"   "+car.getPhoneNumber()+"   "+
+                    car.getStartDateTime()+System.lineSeparator();
+        }
+        textPane.setText(toPdf);
+        textPane.print(null, null, false, null, null, false);
+
+
+        //textPane.print();
+
+    } 
 }
