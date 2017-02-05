@@ -61,7 +61,6 @@ public class ListViewController implements Initializable {
         phoneNumberCol.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
         startDateTimeCol.setCellValueFactory(cellData -> cellData.getValue().startDateTimeProperty());
     }
-    //test //should be on click
     public void filterData() {
         filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             carPark.getCarDataFiltered().setPredicate(car -> {
@@ -69,12 +68,25 @@ public class ListViewController implements Initializable {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                //
+                //zapisuje sobie nową wartość do zmiennej
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (car.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
+                //sprawdza czy zawiera wyrażenie ze zmiennej z filterm
+                if (car.getLocation().toString().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // miejsce
+                } else if (car.getRegNum().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // numer rejestracyjny
+                } else if (car.getMake().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // marka
+                } else if (car.getModel().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // model
+                } else if (car.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // imie
                 } else if (car.getLastName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches last name.
+                    return true; // nazwisko
+                } else if (car.getPhoneNumber().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // numer telefonu
+                } else if (car.getStartDateTime().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // czas wjazdu
                 } 
                 return false; // Does not match.
             });
