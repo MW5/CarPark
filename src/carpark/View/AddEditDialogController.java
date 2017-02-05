@@ -121,31 +121,36 @@ public class AddEditDialogController implements Initializable {
     private boolean validateInput(String addEditRegNumVal,
             String addEditMakeVal, String addEditModelVal, String addEditFirstNameVal,
             String addEditLastNameVal, String addEditPhoneNumberVal) {
-        String regex = "[0-9]+"; //do walidacji numeru telefonu
+        String numRegex = "[0-9]+"; //do walidacji numeru telefonu
+        String letterNumRegex = "[0-9a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]+"; //tylko litery i liczby
         String alertText = ""; //żeby dodawać do zmiennej muszę jej nadać jakąś wartość
         Boolean incorrectInput = false;
-        if (addEditRegNumVal.length() != 7) {
+        if (addEditRegNumVal.length() != 7 ||!addEditRegNumVal.matches(letterNumRegex)) {
             incorrectInput = true;
-            alertText += "\nWprowadź siedmoiznakowy numer rejestracyjny.";
+            alertText += "\nWprowadź siedmioznakowy numer rejestracyjny.";
         }
-        if (addEditMakeVal.length() == 0 || addEditMakeVal.length() > 20) {
+        if (addEditMakeVal.length() == 0 || addEditMakeVal.length() > 20 ||
+                !addEditMakeVal.matches(letterNumRegex)) {
             incorrectInput = true;
             alertText += "\nWprowadź markę (1-20 znaków).";
         }
-        if (addEditModelVal.length() == 0 || addEditModelVal.length() > 20) {
+        if (addEditModelVal.length() == 0 || addEditModelVal.length() > 20 ||
+                !addEditModelVal.matches(letterNumRegex)) {
             incorrectInput = true;
             alertText += "\nWprowadź model (1-20 znaków).";
         }
-        if (addEditFirstNameVal.length() == 0 || addEditFirstNameVal.length() > 20) {
+        if (addEditFirstNameVal.length() == 0 || addEditFirstNameVal.length() > 20 ||
+                !addEditFirstNameVal.matches(letterNumRegex)) {
             incorrectInput = true;
             alertText += "\nWprowadź imię (1-20 znaków).";
         }
-        if (addEditLastNameVal.length() == 0 || addEditLastNameVal.length() > 20) {
+        if (addEditLastNameVal.length() == 0 || addEditLastNameVal.length() > 20 ||
+                !addEditLastNameVal.matches(letterNumRegex)) {
             incorrectInput = true;
             alertText += "\nWprowadź nazwisko pomiędzy (1-20 znaków).";
         }
         if (addEditPhoneNumberVal.length() == 0 || addEditPhoneNumberVal.length() > 20 ||
-                !addEditPhoneNumberVal.matches(regex)) {
+                !addEditPhoneNumberVal.matches(numRegex)) {
             incorrectInput = true;
             alertText += "\nWprowadź numer telefonu (1-20 cyfr).";
         }
