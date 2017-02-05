@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 /**
@@ -25,7 +26,7 @@ public class InfoBarController implements Initializable {
     public void setCarPark(CarPark carPark) {
         this.carPark = carPark;
     }
-    
+
     public void updateSpaceInfo() {
         Integer fillPer = carPark.getCarData().size()*100/carPark.getParkingSpacesNum();
         Integer emptySp = carPark.getParkingSpacesNum()-carPark.getCarData().size();

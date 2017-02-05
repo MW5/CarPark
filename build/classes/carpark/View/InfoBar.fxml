@@ -14,14 +14,14 @@
         <URL value="@/carpark/Style/Stylesheet.css" />
     </stylesheets>
    <children>
-      <HBox id="top_bar" prefHeight="90.0">
+      <HBox id="top_bar" alignment="CENTER" prefHeight="90.0">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SYSTEM ZARZĄDZANIA PARKINGIEM">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
                <HBox.margin>
-                  <Insets left="27.0" top="25.0" />
+                  <Insets left="40.0" />
                </HBox.margin>
             </Text>
             <VBox prefHeight="90.0" prefWidth="420.0">
@@ -73,6 +73,9 @@
                </HBox.margin>
             </Button>
          </children>
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets>
       </HBox>
    </children>
 </AnchorPane>

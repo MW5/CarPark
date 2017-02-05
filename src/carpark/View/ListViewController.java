@@ -2,27 +2,22 @@ package carpark.View;
 
 import carpark.CarPark;
 import carpark.Model.Car;
-import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.print.PrinterJob;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
 import javax.swing.JTextPane;
 
 /**
@@ -49,6 +44,8 @@ public class ListViewController implements Initializable {
     private TableColumn<Car, String> phoneNumberCol;
     @FXML
     private TableColumn<Car, String> startDateTimeCol;
+    @FXML
+    private TextField filterField;
     
     private CarPark carPark;
     
@@ -63,6 +60,26 @@ public class ListViewController implements Initializable {
         lastNameCol.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
         phoneNumberCol.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
         startDateTimeCol.setCellValueFactory(cellData -> cellData.getValue().startDateTimeProperty());
+    }
+    //test //should be on click
+    public void filterData() {
+        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            carPark.getCarDataFiltered().setPredicate(car -> {
+                // jeśli filtr jest pusty to wyświetlaj wszystko
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                //
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (car.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches first name.
+                } else if (car.getLastName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches last name.
+                } 
+                return false; // Does not match.
+            });
+        });
+        carTable.setItems(carPark.getCarDataFiltered());
     }
     
     public void setCarPark (CarPark carPark) {

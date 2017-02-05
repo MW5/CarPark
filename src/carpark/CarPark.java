@@ -13,11 +13,10 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Timer;
-import java.util.TimerTask;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -34,9 +33,13 @@ public class CarPark extends Application {
     private final Integer parkingSpacesNum = 50;
     
     private ObservableList<Car> carData = FXCollections.observableArrayList();
+    private FilteredList<Car> filteredData = new FilteredList<>(carData, p -> true);
     
     public ObservableList<Car> getCarData() {
         return carData;
+    }
+    public FilteredList<Car> getCarDataFiltered() {
+        return filteredData;
     }
     public void addToCarData(Car car) {
         carData.add(car);
@@ -66,7 +69,7 @@ public class CarPark extends Application {
     
     public void loadFromFile() {
         try {
-            FileReader fileReader = new FileReader("./src/carpark/DB/carDB.txt");
+            FileReader fileReader = new FileReader("C:\\CarParkDB\\carDb.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while(bufferedReader.readLine()!=null) { //z jakiegoś powodu pomija nieparzyste linie
                 String oneLine = bufferedReader.readLine();
@@ -88,12 +91,14 @@ public class CarPark extends Application {
             bufferedReader.close();
             fileReader.close();
         } catch (IOException e) {
-            e.printStackTrace(System.out);
+            e.printStackTrace(System.out); //przed dodaniem pierwszych danych będzie występował ten wyjątek
         }
     }
     public void updateFile() { //nadpisuje cały plik
         try {
-            OutputStream out = new FileOutputStream(new File("./src/carpark/DB/carDB.txt"));
+            File file = new File("C:\\CarParkDB\\carDb.txt");
+            file.getParentFile().mkdirs();
+            OutputStream out = new FileOutputStream(file);
             String dataToWrite = "";
             for (Car car : carData) {
                 dataToWrite += System.lineSeparator()+car.getLocation()+";"+car.getRegNum()+";"+
@@ -148,6 +153,7 @@ public class CarPark extends Application {
             rootLayout.setCenter(listView);
             ListViewController controller = loader.getController();
             controller.setCarPark(this);
+            controller.filterData();
         } catch (IOException e) {
             e.printStackTrace(System.out);
         } 
